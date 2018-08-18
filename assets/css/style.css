@@ -1,0 +1,35 @@
+body {
+
+    font-family : 'Press Start 2P', cursive;
+
+    text-align: center;
+
+    color:yellow;
+
+    background-color: green;
+
+  }
+
+  header {
+
+    font-size: 36px
+
+  }
+
+  .title {
+
+    font-size: 24px
+
+  }
+
+  .plain-text {
+
+    font-size: 16px
+
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+  }
