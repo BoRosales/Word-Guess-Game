@@ -1,7 +1,8 @@
+// Create a var called game that runs the function to initialize game. 
 var game = InitializeGame();
 
  
-
+// function to start game. Holds game object.
 function InitializeGame() {
 
   var game = {
