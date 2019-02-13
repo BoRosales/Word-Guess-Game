@@ -14,13 +14,13 @@ let game = {
 
 // Function to randomize character chosen
 var character = game.pickName();
-// 
+// Pick character name given index
 var gameName =  game.names[character][0];
-//
+// Pick character picture given index
 var image = game.names[character][1];
-//
+// Split the character name into array
 var arrGameName = gameName.split("");
-//
+// Make all the letters in the character name lowercase
 var lowGameName = gameName.toLowerCase();
 
 //Find the number of spaces in arrGameName
@@ -56,8 +56,57 @@ document.onkeyup = function(event) {
     if (event.keyCode > 64 && event.keyCode < 91) {
         if (game.guessed.indexOf(key) === -1) {
             if (lowGameName.indexOf(key) > -1) {
-                
+                game.guessed.push(key);
+                game.correct.push(key);
+                var index = lowGameName.indexOf(key);
+                document.getElementById(index).innerHTML = key;
+                if (lowGameName.indexOf(key, index +1) > -1) {
+                    var otherIndex= lowGameName.indexOf(key, index + 1);
+                    game.correct.push(key);
+                    document.getElementById(otherIndex).innerHTML= key;
+                }
+                if (lowGameName.length - findSpaces(arrGameName) === game.correct.length) {
+                    document.getElementById('you').innerHTML = "You";
+                    document.getElementById('win-lose').innerHTML = "Win!";
+                    document.getElementById('win-img').src = picture;
+                    game.wins++;
+                    game.guesses = 10;
+                    game.guessed = [];
+                    game.correct = [];
+                    setTimeout(function(){document.getElementById('game').innerHTML = "";}, 1000);
+                    character = game.pickName();
+                    gameName = game.names[character][0];
+                    picture = game.names[character][1];
+                    arrGameName = gameName.split("");
+                    lowGameName = gameName.toLowerCase();
+                    setTimeout(function(){createBoard();}, 2000);
+                }
+            } else {
+                game.guessed.push(key);
+                game.guesses--;
             }
         }
     }
+    if (game.guesses === 0) {
+        document.getElementById('you').innerHTML = "You";
+        document.getElementById('win-lose').innerHTML = "Lose!";
+        game.losses++;
+        game.guesses = 10;
+        game.guessed = [];
+        game.correct = [];
+        document.getElementById('game').innerHTML = "";
+        fighter = game.pickName();
+        gameName = games.names[character][0];
+        picture = game.names[character][1];
+        arrGameName = gameName.split("");
+        lowGameName = gameName.toLowerCase();
+        setTimeout(function(){createBoard();}, 2000);
+    }
+    // This displays once user clicks and updates with the clicks
+    var html = '<p>Turns Left: ' + game.guesses + ' </p>' +
+    '<p>Guessed Letters: ' + game.guessed.join(',') + '</p>' +
+    '<p>Wins: ' + game.wins + '</p>' + 
+    '<p>Losses: ' + game.losses + '</p>';
+
+    document.querySelector('#stats').innerHTML= html;
 }

@@ -1,35 +1,74 @@
 body {
-
     font-family : 'Press Start 2P', cursive;
-
     text-align: center;
-
     color: red;
-
     background-color: black;
-
-  }
-
-  header {
-
-    font-size: 36px
-
   }
 
   .title {
-
     font-size: 24px
-
   }
 
   .plain-text {
-
     font-size: 16px
-
   }
 
   .footer {
-    position: absolute;
-    bottom: 30px;
+    position: fixed;
+    bottom: 0;
+    height: 30px;
     width: 100%;
+  }
+
+  p {
+    font-size: 18px;
+  }
+  
+  .heading {
+    margin-top: 20px;
+  }
+  
+  .heading li img {
+    height: 110px;
+    width: 110px;
+  }
+  
+  #player {
+    width: 50%;
+  }
+  
+  
+  .red {
+    color: red;
+  }
+  
+  .start {
+      color: rgb(0, 238, 255)
+  }
+  .newgame {
+    margin-bottom: 15px;
+  }
+  
+  li {
+    display: -webkit-inline-box;
+  }
+  
+  li img {
+    height: 30px;
+    width: 40px;
+  }
+  
+  #game {
+    margin-bottom: 30px;
+  }
+  
+  #game li {
+    width: 40px;
+    font-size: 46px;
+    margin: 8px;
+    border-bottom: 2px solid white;
+  }
+  
+  #stats p {
+    margin-bottom: 30px;
   }
