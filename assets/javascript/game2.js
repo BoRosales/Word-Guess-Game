@@ -1,5 +1,5 @@
 let game = {
-    names: [['Mario'], ['Luigi'], ['Donkey Kong'], ['Peach'], ['Lucario'], ['Link'], ['Ness'], ['Pikachu'], ['Fox']],
+    names: [['Mario', 'assets/images/Mario.png'], ['Luigi', 'assets/images/Luigi.png'], ['Donkey Kong', 'assets/images/DK.png'], ['Samus', 'assets/images/Samus.png'], ['Cpt Falcon', 'assets/images/Cfalcon.png'], ['Link', 'assets/images/Link.png'], ['Ness', 'assets/images/Ness.png'], ['Pikachu', 'assets/images/Pikachu.png'], ['Fox', 'assets/images/Fox.png'], ['Yoshi', 'assets/images/Yoshi.png'], ['Kirby', 'assets/images/Kirby.png']],
     guesses: 10,
     wins: 0,
     losses: 0,
@@ -16,7 +16,7 @@ let game = {
 var character = game.pickName();
 // Pick character name given index
 var gameName =  game.names[character][0];
-// Pick character picture given index
+// Pick character image given index
 var image = game.names[character][1];
 // Split the character name into array
 var arrGameName = gameName.split("");
@@ -51,8 +51,8 @@ createBoard();
 
 document.onkeyup = function(event) {
     // Turns event "key" to lowercase
-    var key = String.fromCharCode(event.keyCode < 91).toLowerCase(); 
-    console.log(event);
+    var key = String.fromCharCode(event.keyCode).toLowerCase(); 
+    console.log("im running");
     // Check letters only
     if (event.keyCode > 64 && event.keyCode < 91) {
         if (game.guessed.indexOf(key) === -1) {
@@ -69,7 +69,7 @@ document.onkeyup = function(event) {
                 if (lowGameName.length - findSpaces(arrGameName) === game.correct.length) {
                     document.getElementById('you').innerHTML = "You";
                     document.getElementById('win-lose').innerHTML = "Win!";
-                    document.getElementById('win-img').src = picture;
+                    document.getElementById('win-img').src = image;
                     game.wins++;
                     game.guesses = 10;
                     game.guessed = [];
@@ -77,7 +77,7 @@ document.onkeyup = function(event) {
                     setTimeout(function(){document.getElementById('game').innerHTML = "";}, 1000);
                     character = game.pickName();
                     gameName = game.names[character][0];
-                    picture = game.names[character][1];
+                    image = game.names[character][1];
                     arrGameName = gameName.split("");
                     lowGameName = gameName.toLowerCase();
                     setTimeout(function(){createBoard();}, 2000);
@@ -96,9 +96,9 @@ document.onkeyup = function(event) {
         game.guessed = [];
         game.correct = [];
         document.getElementById('game').innerHTML = "";
-        fighter = game.pickName();
+        character = game.pickName();
         gameName = games.names[character][0];
-        picture = game.names[character][1];
+        image = game.names[character][1];
         arrGameName = gameName.split("");
         lowGameName = gameName.toLowerCase();
         setTimeout(function(){createBoard();}, 2000);
