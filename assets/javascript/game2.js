@@ -34,7 +34,7 @@ function findSpaces(arrName){
     return spaces;
 }
 
-//
+// Create this game board function based on chosen name
 function createBoard(){
     for (i = 0; i < arrGameName.length; i++){
         if (arrGameName[i] === " ") {
@@ -52,6 +52,7 @@ createBoard();
 document.onkeyup = function(event) {
     // Turns event "key" to lowercase
     var key = String.fromCharCode(event.keyCode < 91).toLowerCase(); 
+    console.log(event);
     // Check letters only
     if (event.keyCode > 64 && event.keyCode < 91) {
         if (game.guessed.indexOf(key) === -1) {
@@ -108,5 +109,5 @@ document.onkeyup = function(event) {
     '<p>Wins: ' + game.wins + '</p>' + 
     '<p>Losses: ' + game.losses + '</p>';
 
-    document.querySelector('#stats').innerHTML= html;
+    document.querySelector('#stats').innerHTML = html;
 }
