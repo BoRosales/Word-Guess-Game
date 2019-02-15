@@ -1,166 +1,113 @@
-// Create a var called game that runs the function to initialize game. 
-var game = InitializeGame();
+let game = {
+    names: [['Mario', 'assets/images/Mario.png'], ['Luigi', 'assets/images/Luigi.png'], ['Donkey Kong', 'assets/images/DK.png'], ['Samus', 'assets/images/Samus.png'], ['Cpt Falcon', 'assets/images/Cfalcon.png'], ['Link', 'assets/images/Link.png'], ['Ness', 'assets/images/Ness.png'], ['Pikachu', 'assets/images/Pikachu.png'], ['Fox', 'assets/images/Fox.png'], ['Yoshi', 'assets/images/Yoshi.png'], ['Kirby', 'assets/images/Kirby.png']],
+    guesses: 10,
+    wins: 0,
+    losses: 0,
+    correct: [],
+    guessed: [],
+    gameOver: false,
 
- 
-// function to start game. Holds game object.
-function InitializeGame() {
-
-  var game = {
-
-    "numberWins": 0,
-
-    "words": [
-
-      {
-
-        "word": "mario",
-
-        "guessed" : false,
-
-        "guessPicture" : "https://timedotcom.files.wordpress.com/2014/06/450345664.jpg",
-
-        "guessedLetters": [],
-
-        "remainingGuess": 10
-
-      },
-
-      {
-
-        "word": "luigi",
-
-        "guessed" : false,
-
-        "guessPicture" : "https://timedotcom.files.wordpress.com/2014/06/450345664.jpg",
-
-        "guessedLetters": [],
-
-        "remainingGuess": 10
-
-      },
-
-      {
-
-        "word": "bowser",
-
-        "guessed" : false,
-
-        "guessPicture" : "https://timedotcom.files.wordpress.com/2014/06/450345664.jpg",
-
-        "guessedLetters": [],
-
-        "remainingGuess": 10
-
-      },
-
-      {
-
-        "word": "peach",
-
-        "guessed" : false,
-
-        "guessPicture" : "https://timedotcom.files.wordpress.com/2014/06/450345664.jpg",
-
-        "guessedLetters": [],
-
-        "remainingGuess": 10
-
-        },
-
-    ],
-
-    "currentWord": {}
-
-  }
-
- //Set current word and update the display for those characters
-
-  SetCurrentWord(game);
-
-  UpdateGameDisplay(game);
-
-  return game;
-
-}
-
- //functions
-
-function SetCurrentWord(game) {
-
-  for ( var word in game.words) {
-
-    if(!word.guessed && game.currentWord != null)
-
-    {
-
-      game.currentWord = game.words[word];
-
+    pickName: function() {
+        return [Math.floor(Math.random() * this.names.length)];
     }
+};
 
-  }
+// Function to randomize character chosen
+var character = game.pickName();
+// Pick character name given index
+var gameName =  game.names[character][0];
+// Pick character image given index
+var image = game.names[character][1];
+// Split the character name into array
+var arrGameName = gameName.split("");
+// Make all the letters in the character name lowercase
+var lowGameName = gameName.toLowerCase();
 
-}
-
- 
-
-function HandleGuess(guessedLetter) {
-
-  console.log(guessedLetter);
-
-  game.currentWord.guessedLetters.push(guessedLetter);
-
-  UpdateGameDisplay(game)
-
-}
-
- 
-
-function UpdateGameDisplay(game) {
-
-  console.log(game);
-
-  document.querySelector('.numberOfWins').textContent = game.numberWins;
-
-  document.querySelector('.currentWordDisplay').textContent = ShowLetters(game);
-
-  document.querySelector('.guessedLetters').textContent = game.currentWord.guessedLetters;
-
- 
-
- 
-
-}
-
- 
-
-function ShowLetters(game) {
-
-  var display = "";
-
-  for (var i = 0; i < game.currentWord.word.length; i++) {
-
-    if(game.currentWord.guessedLetters.indexOf(game.currentWord.word[i]) == -1 ) {
-
-      display = display + " _ ";
-
-    } else {
-
-      display = display + " " + game.currentWord.word[i] + " ";
-
+//Find the number of spaces in arrGameName
+function findSpaces(arrName){
+    var spaces = 0;
+    for (i = 0; i < arrName.length; i++) {
+        if (arrName[i] === " ") {
+            spaces++;
+        }
     }
-
-  }
-
- 
-
-  return display;
-
+    return spaces;
 }
 
- 
+// Create this game board function based on chosen name
+function createBoard(){
+    for (i = 0; i < arrGameName.length; i++){
+        if (arrGameName[i] === " ") {
+            letterList = "<li style='border-bottom:none;margin:0 15px 0 5px' id='" + i + "' >" + arrGameName[i] + "</li>";
+            document.getElementById('game').innerHTML += letterList;
+        } else {
+            letterList = "<li id='" + i + "'></li>";
+            document.getElementById('game').innerHTML += letterList;
+        }
+    }
+}
 
-document.onkeydown = function(evt) {
+createBoard();
 
-    HandleGuess(evt.key);
+document.onkeyup = function(event) {
+    // Turns event "key" to lowercase
+    var key = String.fromCharCode(event.keyCode).toLowerCase(); 
+    console.log("im running");
+    // Check letters only
+    if (event.keyCode > 64 && event.keyCode < 91) {
+        if (game.guessed.indexOf(key) === -1) {
+            if (lowGameName.indexOf(key) > -1) {
+                game.guessed.push(key);
+                game.correct.push(key);
+                var index = lowGameName.indexOf(key);
+                document.getElementById(index).innerHTML = key;
+                if (lowGameName.indexOf(key, index +1) > -1) {
+                    var otherIndex= lowGameName.indexOf(key, index + 1);
+                    game.correct.push(key);
+                    document.getElementById(otherIndex).innerHTML= key;
+                }
+                if (lowGameName.length - findSpaces(arrGameName) === game.correct.length) {
+                    document.getElementById('you').innerHTML = "You";
+                    document.getElementById('win-lose').innerHTML = "Win!";
+                    document.getElementById('win-img').src = image;
+                    game.wins++;
+                    game.guesses = 10;
+                    game.guessed = [];
+                    game.correct = [];
+                    setTimeout(function(){document.getElementById('game').innerHTML = "";}, 1000);
+                    character = game.pickName();
+                    gameName = game.names[character][0];
+                    image = game.names[character][1];
+                    arrGameName = gameName.split("");
+                    lowGameName = gameName.toLowerCase();
+                    setTimeout(function(){createBoard();}, 2000);
+                }
+            } else {
+                game.guessed.push(key);
+                game.guesses--;
+            }
+        }
+    }
+    if (game.guesses === 0) {
+        document.getElementById('you').innerHTML = "You";
+        document.getElementById('win-lose').innerHTML = "Lose!";
+        game.losses++;
+        game.guesses = 10;
+        game.guessed = [];
+        game.correct = [];
+        document.getElementById('game').innerHTML = "";
+        character = game.pickName();
+        gameName = game.names[character][0];
+        image = game.names[character][1];
+        arrGameName = gameName.split("");
+        lowGameName = gameName.toLowerCase();
+        setTimeout(function(){createBoard();}, 2000);
+    }
+    // This displays once user clicks and updates with the clicks
+    var html = '<p>Turns Left: ' + game.guesses + ' </p>' +
+    '<p>Guessed Letters: ' + game.guessed.join(',') + '</p>' +
+    '<p>Wins: ' + game.wins + '</p>' + 
+    '<p>Losses: ' + game.losses + '</p>';
 
+    document.querySelector('#stats').innerHTML = html;
 }

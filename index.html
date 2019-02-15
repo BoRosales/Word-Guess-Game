@@ -1,74 +1,59 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-  <title>Super Smash Bros Hangman</title>
-
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-    crossorigin="anonymous">
-
-  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
-
-  <link rel="stylesheet" href="assets/css/style.css">
-
-  <script src="assets/javascript/game.js"></script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Super Smash Bros Hangman</title>
+    <!--Boostrap link-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <!--Google Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <!--Link to CSS-->
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
-
-  <div>
-
-    <header>
-
-      <img style="width: 150px" src="https://www.pixilart.com/images/art/0b970b3241d1d1a.png" />
-
-      <span>Hangman</span>
-
-    </header>
-
-    <article>
-
-      <p class="title">Let's-A-go!</p>
-
-      <p class="plain-text">Instructions: Type any key to play! Then choose a letter and see if it's in the word!</p>
-
-
-
-      <div>
-
-        <div class="numberOfWins"></div>
-
-        <div class="currentWordDisplay"></div>
-
-        <div class="guessedLetters"></div>
-
-      </div>
-
-    </article>
-
-  </div>
-
-
+    <div class="container text-center">
+        <div class="heading">
+            <ul>
+                <li>
+                    <h3 class="red" id="you"></h3>
+                </li>
+                <li><img id="win-img" src="assets/images/placeholder.png"></li>
+                <li>
+                    <h3 class="red" id="win-lose"></h3>
+                </li>
+            </ul>
+            <div class="title">
+                <img id="player" style="width: 350px" src="https://vignette.wikia.nocookie.net/logopedia/images/5/5e/Super_Smash_Bros_logo.svg/revision/latest?cb=20130411073636" />
+            </div>
+            <div class="startgame">
+                <ul>
+                    <li></li>
+                    <li>
+                        <p class="start">Press any letter to start!</p>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <ul id="game">
+                </ul>
+            </div>
+            <div id="stats">
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="red">&#169; 2019 Bo Rosales</p>
+        </div>
+    </footer>
+    <!--Link to JavaScript-->
+    <script src="assets/javascript/game.js"></script>
 
 </body>
-
-
-
-<script type="text/javascript" src="assets/javascript/game.js"></script>
-
-<footer class="footer">
-  <div class="container">
-    <p class="red">&#169; 2019 Bo Rosales</p>
-  </div>
-</footer>
 
 </html>
