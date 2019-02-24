@@ -1,5 +1,7 @@
 # Word-Guess-Game #
 
+* Try the game here: https://borosales.github.io/Word-Guess-Game/
+
 #  Super Smash 64 Hangman # 
 
 This application was made using :
